@@ -1,0 +1,4 @@
+id: terraform-module
+version: 1.0.0
+name: Terraform module repository generator
+description: A generator to create Terraform repositories with tests using terratest

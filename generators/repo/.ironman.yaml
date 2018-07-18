@@ -1,0 +1,3 @@
+id: repo
+name: A new Terraform repository generator
+description: This is the repository generator, this is the first command you should run when creating a new Terraform module repo
