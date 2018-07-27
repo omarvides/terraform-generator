@@ -44,8 +44,6 @@ instance_name: ec2_instance_name
 | region        | The region where the ami exists                                              | us-east-1       |
 | instance_type | The instance type that defines the size of the instance that will be created | t2.micro        |
 | instance_name | The name that will be set to the instance                                    | sample-instance |
-|               |                                                                              |                 |
-|               |                                                                              |                 |
 
 ## Using it
 
