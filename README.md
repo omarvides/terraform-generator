@@ -1,6 +1,6 @@
 # Terraform repository and modules generator with Terratest specs
 
-An Ironman generator template to create terraform modules with tests written with terratest (a golang library)
+A Terraform template for Ironman generator to create modules with tests written with terratest (a Golang library)
 
 Ironman generator: https://github.com/ironman-project/ironman
 
@@ -23,16 +23,29 @@ projectName: Some Project Name
 projectDescription: Some project Descript
 ```
 
-### This repository expected variables, to write your own instance of the file above, you can copy following snippet, write it down in a yaml file and modify it to meet your needs.
+### This generator can create different type of modules, variables change for each provider
+
+### AWS file eample
 
 ```variables.yaml```
 
 ``` yaml
 ami_id: ami-0000000
 region: us-east-1
-instance_type: t2.micro
-instance_name: web_site
+instance_type: t2.micro[]
+instance_name: ec2_instance_name
 ```
+
+### Variables reference
+
+| Variable      | Description                                                                  | Default Value   |
+|---------------|------------------------------------------------------------------------------|-----------------|
+| ami_id        | The AMI id to use to create the a ec2 instance                               |                 |
+| region        | The region where the ami exists                                              | us-east-1       |
+| instance_type | The instance type that defines the size of the instance that will be created | t2.micro        |
+| instance_name | The name that will be set to the instance                                    | sample-instance |
+|               |                                                                              |                 |
+|               |                                                                              |                 |
 
 ## Using it
 
@@ -40,8 +53,29 @@ Since this module uses terratest which is a Golang library to use this module is
 
 Once Golang is installed generate your terraform module under your GOPATH directory (this becomes clear after installing Go)
 
-Generating a new module
+### Generating a new aws module
 
 ```
 ironman generate terraform-module:aws name-of-your-module -f variables.yaml
 ```
+
+That command will generate a structure similar to the tree below (the vendor directory will contain more nested folders with the dependencies to run the tests, this is a simplified view of the tree)
+
+```
+├── README.md
+├── main.tf
+├── outputs.tf
+├── terraform.tfstate
+├── terraform.tfstate.backup
+├── terraform.tfvars
+├── tests
+│   ├── Gopkg.lock
+│   ├── Gopkg.toml
+│   ├── aws_test.go
+│   └── vendor
+│       ├── github.com
+│       └── golang.org
+└── variables.tf
+```
+
+Start coding :)
