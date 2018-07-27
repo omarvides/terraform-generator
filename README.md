@@ -76,4 +76,13 @@ That command will generate a structure similar to the tree below (the vendor dir
 └── variables.tf
 ```
 
+### Running your tests
+
+Move inside your new repository directory and run 
+
+```
+go test -v ./...
+```
+
+
 Start coding :)
