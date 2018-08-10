@@ -1,0 +1,1 @@
+# {{.Values.instance_type | default "t2.micro"}}", "{{.Values.region | default "us-east-1"}}", "{{.Values.instance_name | default "sample-instance"}}"

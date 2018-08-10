@@ -78,7 +78,29 @@ That command will generate a structure similar to the tree below (the vendor dir
 
 ### Running your tests
 
-Move inside your new repository directory and run 
+Please notice that terratest to test terraform modules needs to create real infrastructure, so please be careful with what you test, as you could be billed the provider where you are creating resources.
+
+The ```terraformOptions``` variable at the testing file can pass configurations to your module, as example let's assume your variables file contains
+
+```
+variable "region" {
+  type = "string"
+  default = "us-east-1"
+}
+
+variable "instance_type" {
+  type = "string"
+  default = "t2.micro"
+}
+
+variable "ami" {
+  type = "string"
+  default = "ami-0000"
+}
+```
+
+
+Move inside your new module directory directory and run 
 
 ```
 go test -v ./...
