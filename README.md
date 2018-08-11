@@ -153,4 +153,4 @@ go test -v ./...
 
 ## Notes
 
-I'm providing with this repository an ami that you can use for your tests ```ami-c0f0c0bf``` it is only available at us-east-1, so if you try to spin off a new instance based on this ami on a region different than us-east-1 it won't work, also I don't give any warranty that this ami will exist forever, please consider using one of the default aws amis, or build your own using [packer](https://www.packer.io/)
+I'm providing with this repository an ami that you can use for your tests ```ami-c0f0c0bf``` it is only available at us-east-1, so if you try to launch a new instance based on this ami on a region different than us-east-1 it won't work, also I don't give any warranty that this ami will exist forever, please consider using one of the default aws amis, or build your own using [packer](https://www.packer.io/)
