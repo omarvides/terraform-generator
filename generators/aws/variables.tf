@@ -12,3 +12,8 @@ variable "ami" {
   type = "string"
   default = "{{.Values.ami_id | default ""}}"
 }
+
+variable "name" {
+  type = "string"
+  default = "{{.Values.instance_name | default "sample-instance"}}"
+}

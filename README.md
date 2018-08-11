@@ -97,6 +97,11 @@ variable "ami" {
   type = "string"
   default = "ami-0000"
 }
+
+variable "name" {
+  type = "string"
+  default = "{{.Values.instance_name | default "sample-instance"}}"
+}
 ```
 
 
