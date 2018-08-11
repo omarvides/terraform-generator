@@ -1,4 +1,4 @@
-# Terraform repository and modules generator with Terratest specs
+# Terraform module generator
 
 A Terraform template for Ironman generator to create modules with tests written with terratest (a Golang library to test Terraform, Packer and Docker and more)
 
@@ -33,7 +33,7 @@ projectDescription: Some project Descript
 ``` yaml
 ami_id: ami-0000000
 region: us-east-1
-instance_type: t2.micro[]
+instance_type: t2.micro
 instance_name: ec2_instance_name
 ```
 
