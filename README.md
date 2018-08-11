@@ -1,8 +1,9 @@
 # Terraform repository and modules generator with Terratest specs
 
-A Terraform template for Ironman generator to create modules with tests written with terratest (a Golang library)
+A Terraform template for Ironman generator to create modules with tests written with terratest (a Golang library to test Terraform, Packer and Docker and more)
 
-Ironman generator: https://github.com/ironman-project/ironman
+* Ironman generator: https://github.com/ironman-project/ironman
+* Terratest repository: https://github.com/gruntwork-io/terratest
 
 ## Installing this generator
 
@@ -47,9 +48,9 @@ instance_name: ec2_instance_name
 
 ## Using it
 
-Since this module uses terratest which is a Golang library to use this module is needed to install Golang first, please follow the installation instructions here https://golang.org/doc/install for your OS, you can find the Golang installers here https://golang.org/dl/.
+* Since this module uses terratest which is a Golang library to use this module is needed to install Golang first, please follow the installation instructions here https://golang.org/doc/install for your OS, you can find the Golang installers here https://golang.org/dl/.
 
-Once Golang is installed generate your terraform module under your GOPATH directory (this becomes clear after installing Go)
+* Once Golang is installed generate your terraform module under your GOPATH directory (this becomes clear after installing Go)
 
 ### Generating a new aws module
 
@@ -138,7 +139,13 @@ the configuration line ```"name":          fmt.Sprintf("test-instance-%s", uniqu
 
 ### Running your tests
 
-Move inside your new module directory directory and run 
+* Move to the test directory under your generated repository and install the dependencies by running (inside your repository)
+
+``` bash
+dep ensure
+```
+
+* At the root of your newly generated repository run
 
 ```
 go test -v ./...
