@@ -76,11 +76,11 @@ That command will generate a structure similar to the tree below (the vendor dir
 └── variables.tf
 ```
 
-### Running your tests
+### Before you run any tests
 
 Please notice that terratest to test terraform modules needs to create real infrastructure, so please be careful with what you test, as you could be billed the provider where you are creating resources.
 
-The ```terraformOptions``` variable at the testing file can pass configurations to your module, as example let's assume your variables file contains
+The ```terraformOptions``` variable at the testing file can pass configurations to your module, as example let's assume your variables file contains the configuration below
 
 ```
 variable "region" {
@@ -100,10 +100,43 @@ variable "ami" {
 
 variable "name" {
   type = "string"
-  default = "{{.Values.instance_name | default "sample-instance"}}"
+  default = "my-instance-name-tag"
 }
 ```
 
+This configurations will be overwritten by the test as follows
+
+``` go
+
+package tests
+
+import (
+	"fmt"
+	"testing"
+
+	"github.com/gruntwork-io/terratest/modules/random"
+	"github.com/gruntwork-io/terratest/modules/terraform"
+)
+
+func TestAWS(t *testing.T) {
+	uniqueID := random.UniqueId()
+	terraformOptions := &terraform.Options{
+		TerraformDir: "../",
+		Vars: map[string]interface{}{
+			"ami":           "ami-c0f0c0bf",
+			"instance_type": "t2.micro",
+			"name":          fmt.Sprintf("test-instance-%s", uniqueID),
+			"region":        "us-east-1",
+		},
+	}
+	defer terraform.Destroy(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
+}
+```
+the configuration line ```"name":          fmt.Sprintf("test-instance-%s", uniqueID),``` will work as namespacing to prevent your tests to overwrite or destroy any existing infrastructure that you created previously using that code, this is a terratest feature, and you can read more about that at the [terratest github repository namspacing documentation](https://github.com/gruntwork-io/terratest#namespacing)
+
+
+### Running your tests
 
 Move inside your new module directory directory and run 
 
@@ -111,5 +144,6 @@ Move inside your new module directory directory and run
 go test -v ./...
 ```
 
+## Notes
 
-Start coding :)
+I'm providing with this repository an ami that you can use for your tests ```ami-c0f0c0bf``` it is only available at us-east-1, so if you try to spin off a new instance based on this ami on a region different than us-east-1 it won't work, also I don't give any warranty that this ami will exist forever, please consider using one of the default aws amis, or build your own using [packer](https://www.packer.io/)
